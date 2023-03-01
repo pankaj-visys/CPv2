@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ppr.title}}</title>
+    <style>
+        .container {
+            display: grid;
+            justify-content: center;
+        }
+        .box {
+            display: grid;
+            width: 650px;
+            height: 450px;
+            border: 2px solid black;
+            overflow: auto;
+            /* grid-gap:1px; */
+            grid-template-columns: 250px 130px 130px 130px;
+            /* background-color: blueviolet; */
+            /* grid-gap: 1px; */
+            grid-template-rows: 50px 60px 80px 280px
+        }
+        
+
+        .inst {
+            display: flex;
+            background-color: whitesmoke;
+            /* border: 1px solid black; */
+            justify-content: center;
+            align-items: center;
+
+        }
+        .b1{
+            grid-column-start: 1;
+            grid-column-end: 5;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .b2{
+            grid-column-start: 1;
+            grid-column-end: 5;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .sss {
+            display: grid;
+            padding: 10px;
+            justify-content: space-around;
+            align-items: center;
+            height: auto;
+
+        }
+        .time{
+            grid-row-start: span 4
+            /* grid-row-end: 5; */
+        }
+        .bold{
+            font-weight: bold;
+            padding:6px
+        }
+        .rule{
+            grid-column-start: 1;
+            grid-column-end: 5;
+            padding:10px;
+            font-size: 20px;
+        }
+        .border{
+            border: 1px solid rgb(14, 13, 13);
+        }
+        .bt1{
+            padding:5px;
+            margin:5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="cover"> -->
+    <div class="container">
+        <div class="box">
+        
+        <div class="inst b1 border">Instruction</div>
+        <div class="inst b2 border">Please read the following instructions very carefully:</div>
+        <div class="inst bold border">Subject</div>
+        <div class="inst bold border">Number of Questions</div>
+        <div class="inst bold border">Maximum Marks</div>
+        <div class="inst bold border">Time</div>
+        <div class="inst sss border">
+            {% for s in subject %}
+            <div class="inst">{{ s.subject_name }}</div>
+            <!-- <div class="inst">subject2</div> -->
+            <!-- <div class="inst">subject3</div> -->
+            <!-- <div class="inst">subject4</div> -->
+            {% endfor %}
+
+        </div>
+        <div class="inst sss border">
+            {% for q in subject %}
+            <div class="inst">{{q.total_que}}</div>
+            <!-- <div class="inst">que</div> -->
+            <!-- <div class="inst">que</div> -->
+            <!-- <div class="inst">que</div> -->
+            {% endfor %}
+
+
+        </div>
+        <div class="inst sss border">
+            {% for m in subject %}
+            <div class="inst">{{m.total_marks}}</div>
+            <!-- <div class="inst">marks</div> -->
+            <!-- <div class="inst">marks</div> -->
+            <!-- <div class="inst">marks</div> -->
+            {% endfor %}
+        </div>
+        <div class="inst border" >{{ppr.time_duration}} min.</div>
+
+        
+    
+        
+        <div class="rule">
+       
+        1. You have 30 minutes to complete the <br>
+        2. The test contain 30 questons and 60 marks.<br>
+        3. There is only one correct answer to each question. Click on the most appropriate option to mark it as your answer.4. You will be awarded 2 for each correct answer.<br>
+        5. There is 0.5 penality for wrong answer.<br>
+        6. You can change your answer by clicking on some other answer.<br>
+        7. You can unmark your answer by clicing on the "Clear Response" button.<br>
+        8. A number list of all questions appears at the right hand side of the screen. You can access the questions in any order within a section or across sections by clicking on the question number given on the number list.<br>
+        9. You can use rough sheets while taing the test. Do not use calculators, log tables, dictionaries or any other printed/online reference material during the test.<br>
+        10. Do not click the button "Submit Test" before completing the test. A test once submitted cannot be resumed. <br>
+        </div>
+    </div>
+    
+    <br>
+    <br>
+<div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <input type="checkbox" id="check" onclick="enable()">
+    
+    <b>I've read all the instructions carefully and abide by them.</b>
+    <br>
+    <br>
+    
+    <a href="/Question/{{ppr.new_slug}}">
+    <button disabled="true" id="btn" class="bt1">Start Test</button>
+</a>
+    <button class="bt1">Cancel</button>
+  
+</div>
+</div>
+
+</body>
+<script>
+    function enable() {
+        var check = document.getElementById("check");
+        var btn = document.getElementById("btn");
+        if(check.checked){
+            btn.removeAttribute("disabled");
+        }
+        else{
+            btn.disabled="true";
+        }
+    }
+</script>
+<script>
+    
+    console.log("hello")
+      let time = document.getElementById('time')
+      console.log(time.textContent)
+      distance = time.textContent * 60 * 1000
+      console.log(distance)
+      sessionStorage.setItem('distance', distance)
+</script>
+</html>

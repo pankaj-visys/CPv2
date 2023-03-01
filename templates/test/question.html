@@ -1,0 +1,354 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <title>{{ppr.title}} </title>
+    <style>
+        .container {
+            display: grid;
+            background-color: whitesmoke;
+            /* height:500px; */
+            /* width:600px; */
+            /* grid-row-gap: 5px;
+            grid-column-gap: 5px; */
+            grid-gap: 2px 2px;
+            /* grid-template-columns: 200px 150px 155px; */
+            /* grid-template-rows: 66px 33px; */
+            /* grid-template-columns: auto auto auto auto; */
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 70px 80px 175px 225px 80px;
+            /* justify-content:space-evenly; */
+
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            background-color: whitesmoke;
+            border: 2px solid rgb(192, 180, 247);
+
+            /* text-align: center; */
+        }
+
+        .box1 {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            background-color: #6161ea;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .boxt {
+            display: flex;
+            align-items: center;
+            grid-column-start: 2;
+            grid-column-end: 4;
+            background-color: #6161ea;
+            color: white;
+            padding: 10px;
+        }
+
+        .boxl {
+
+            grid-column-start: 4;
+            grid-column-end: 5;
+            background-color: #6161ea;
+            color: white;
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            padding: 10px;
+
+        }
+
+        .box2 {
+            grid-column-start: 1;
+            grid-column-end: 4;
+            display: flex;
+            justify-content: space-around;
+            align-content: center;
+            align-items: center;
+
+
+        }
+
+        .box3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .box4 {
+            grid-column-start: 1;
+            grid-column-end: 4;
+            grid-row-start: 3;
+            grid-row-end: 5;
+        }
+
+        .box7 {
+            grid-column-start: 1;
+            grid-column-end: 4;
+        }
+
+        .sub {
+            display: flex;
+            /* border : 2px solid black; */
+            background-color: #6161ea;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            margin: 3px;
+
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 40px;
+        }
+
+        .box4 {
+            padding: 10px;
+            font-size: 20px;
+            margin: 10px;
+            overflow: auto;
+        }
+
+        .box5 {
+            display: grid;
+            grid-template-columns: 50px auto;
+            grid-template-rows: auto auto;
+            text-align: center;
+            /* justify-content: center; */
+
+        }
+
+        .attb {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 34px;
+            height: 34px;
+            /* border: 2px solid black; */
+            border-radius: 50%;
+            margin: 5px;
+            color: white;
+        }
+
+        .att {
+            margin: 5px;
+        }
+
+        .que {
+            display: grid;
+            /* border: 2px solid black; */
+            grid-template-columns: 30px 30px 30px 30px;
+            grid-template-rows: auto auto;
+            text-align: center;
+            justify-content: space-around;
+            grid-row-gap: 20px;
+            /* overflow: auto; */
+
+
+        }
+
+        /* .no {
+
+            border-radius: 50%;
+            background-color: white;
+            font-size: larger;
+            padding: 5px;
+        } */
+
+        .box7 {
+            display: flex;
+
+            align-items: center;
+        }
+
+        .box8 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .btn_que {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        /* .status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(192, 44, 113);
+            padding: 15px;
+            color: white;
+            margin: 5px;
+
+        } */
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid white;
+            border-radius: 50%;
+            background-color: white;
+            font-size: large;
+        }
+
+        .btn1 {
+            font-size: large;
+            padding: 10px;
+            margin: 10px;
+            background-color: rgb(192, 44, 113);
+            color: white;
+
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="POST" >{% csrf_token %}
+        <div class="container">
+            <div class="box box1">Amber Tripz</div>
+            <div class="box boxt" id="ppr">{{ppr.title}}</div>
+            <div class="box boxl">{{user.first_name}} {{user.last_name}}
+                <br>
+                {{user.email}}
+            </div>
+
+            <div class="box box2">
+                {% for sub in subject %}
+                <div class="sub">{{sub.subject_name}}</div>
+                {% endfor %}
+
+            </div>
+            
+            <div class="box box3">Time Left : &nbsp<span id="leo">{{time.time}}</span></div>
+            <form action="">
+                <div class="box box4" style="padding:20px;">
+                    {% for q in que %}
+                    <div>
+                        Que. <span id="q_no">{{ q.qs_no }}</span> .&emsp;&emsp;<span id="qst">{{ q.questions }}</span>
+
+
+                    </div>
+                    <div><br>
+                        <img src="/{{ q.image }}" alt="" width="auto" height=""> </div>
+
+                    
+                    
+
+                   <div><span class="aaa"><input type="radio" name="option" class="option" id ="A" value="A"> A </span> .&emsp;&emsp;<span  id="ans_a">{{ q.option_a }}</span></div>
+                    <br><div><span class="bbb"><input type="radio" name="option" class="option" id ="B" value="B"> B </span> .&emsp;&emsp;<span  id="ans_b">{{ q.option_b }}</span></div>
+                    <br><div><span class="ccc"><input type="radio" name="option" class="option" id ="C" value="C"> C </span> .&emsp;&emsp;<span  id="ans_c">{{ q.option_c }}</span></div>
+                    <br><div><span class="ddd"><input type="radio" name="option" class="option" id ="D" value="D"> D </span> .&emsp;&emsp;<span  id="ans_d">{{ q.option_d }}</span></div>
+                    {% endfor %}
+                </div>
+
+                <div class="box box5">
+                    <div class="attb" id="saved" style="background-color: green ;">{{ans_s}}</div>
+                    <div class="att">Answered</div>
+                    <div class="attb" id="not_answered" style="background-color: rgb(201, 45, 110) ;">{{ans_ns}}</div>
+                    <div class="att">Not Answered</div>
+                    <div class="attb" id="not_visited" style="background-color: white; color: black;">{{q_total}}</div>
+                    <div class="att">Not Visited</div>
+                    <div class="attb" id="mark_review" style="background-color: rgb(59, 19, 167) ;">0</div>
+                    <div class="att">Mark For Review</div>
+
+                </div>
+                <div class="box" style="background-color: rgb(190, 241, 241); overflow:auto;">
+                    <br>
+                    <div style="margin-left: 10px;">Choose a Question:</div>
+                    <br>
+                    <div class="que">
+                        {% for q in ppr.que_set.all %}
+                        <div class="no"><input type="button" 
+                                    class="btn btn_que {{q.qs_no}} " data-sid="{{q.qs_no}}" value="{{q.qs_no}}" /></div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+                <div class="box box7" style="justify-content: space-around;">
+                    <div class="status"><input type="button" class="btn1" id="clear" value="Clear Response" /></div>
+                    <div class="status">
+<!--                         
+                        <button type="submit"
+                                class="btn1"> Mark for review and next</button> -->
+                                <input type="button" class="btn1" id="mark" value="Mark for review and next" />
+                        
+                    </div>
+                    
+                    <div class="status">
+                    
+                        <input type="button" id="btnnext" class="btn1" value="Save and Next" />
+                    </div>
+                    
+                <input id="inp" type="text">
+        </div>
+    </form>
+    <div class="box box8">
+         <div><a id="sub" href="/submit/{{ppr.new_slug}}"><input type="button" class="btn1" value="Submit" /></a></div>
+
+    </div>
+
+    </div>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    {% include "ajax/question.html" %}
+    <script>
+        var a = document.getElementById('sub').href
+        console.log(a)
+        var time = document.getElementById('leo')
+        console.log(time.innerHTML)
+        
+        distance = time.innerHTML * 60 * 1000
+        var x = setInterval(function () {
+            // distance = sessionStorage.getItem('distance')
+            
+
+            distance = distance - 1000
+            sessionStorage.setItem('distance', distance);
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            if (minutes > 0 && hours > 0) {
+                document.getElementById("leo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+            }
+            else if (hours == 0 && minutes > 0) {
+                document.getElementById("leo").innerHTML = minutes + "m " + seconds + "s ";
+            }
+            else {
+                document.getElementById("leo").innerHTML = seconds + "s ";
+            }
+            if (distance < 600000) {
+
+                document.getElementById("leo").style.color = "red";
+            }
+            $('#inp').val(distance)
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("leo").innerHTML = "EXPIRED"
+                // window.location.assign(a)
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>
